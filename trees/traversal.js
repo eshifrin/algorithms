@@ -10,6 +10,9 @@ Post order:  left, right, root
 
 */
 
+//--------------------------------SETUP---------------------------------------//
+
+
 class BST {
   constructor(val) {
     this.val = val;
@@ -26,7 +29,7 @@ const assert = (str, expected, processed) => {
   }
 }
 
-//-------------------------------------------------------------------------//
+//--------------------------------FUNCTIONS---------------------------------------//
 
 const inOrder = (node, cb = console.log) => {
   if (!node) {
@@ -75,6 +78,7 @@ const bfs = (root, cb = console.log, level = [root]) => {
   return;
 }
 
+//--------------------------------TESTS---------------------------------------//
 
 (function testSuite() {
 
@@ -95,28 +99,28 @@ const bfs = (root, cb = console.log, level = [root]) => {
   inOrderExpected = [1, 2, 3, 4, 5];
   inOrderResult = [];
 
-  inOrder(testBST, val => inOrderResult.push(val))
+  inOrder(testBST, val => inOrderResult.push(val));
   assert('inOrder', inOrderExpected, inOrderResult);
 
   preOrderExpected = [4, 2, 1, 3, 5];
   preOrderResult = [];
 
-  preOrder(testBST, val => preOrderResult.push(val))
+  preOrder(testBST, val => preOrderResult.push(val));
   assert('preOrder', preOrderExpected, preOrderResult);
 
   postOrderExpected = [1, 3, 2, 5, 4];
   postOrderResult = [];
 
-  postOrder(testBST, val => postOrderResult.push(val))
+  postOrder(testBST, val => postOrderResult.push(val));
   assert('postOrder', postOrderExpected, postOrderResult);
 
 
   bfsExpected = [4, 2, 5, 1, 3];
   bfsResult = [];
 
-  bfs(testBST, val => bfsResult.push(val))
+  bfs(testBST, val => bfsResult.push(val));
   assert('bfs', bfsExpected, bfsResult);
-})()
+})();
 
 
 
