@@ -51,6 +51,23 @@ const preOrder = (node, cb = console.log) => {
   preOrder(node.right, cb);
 }
 
+const preOrderIT = (node, cb = console.log) => {
+  if (!node) {
+    return;
+  }
+
+  let nodes = [node];
+
+  while (nodes.length) {
+    let popped = nodes.pop();
+    cb(popped.val);
+    if (popped.right) { nodes.push(popped.right); };
+    if (popped.left) { nodes.push(popped.left); };
+  }
+
+  return;
+}
+
 const postOrder = (node, cb = console.log) => {
   if (!node) {
     return;
@@ -60,6 +77,18 @@ const postOrder = (node, cb = console.log) => {
   postOrder(node.right, cb);
   cb(node.val);
 }
+
+
+const postOrderIT = (node, cb = console.log) => {
+  if (!node) {
+    return;
+  }
+
+  postOrder(node.left, cb);
+  postOrder(node.right, cb);
+  cb(node.val);
+}
+
 
 const bfs = (root, cb = console.log, level = [root]) => {
   if (!level.length) {
@@ -100,26 +129,30 @@ const bfs = (root, cb = console.log, level = [root]) => {
   inOrderResult = [];
 
   inOrder(testBST, val => inOrderResult.push(val));
-  assert('inOrder', inOrderExpected, inOrderResult);
+  assert('1 inOrder', inOrderExpected, inOrderResult);
 
   preOrderExpected = [4, 2, 1, 3, 5];
   preOrderResult = [];
+  preOrderITResult = [];
 
   preOrder(testBST, val => preOrderResult.push(val));
-  assert('preOrder', preOrderExpected, preOrderResult);
+  assert('2 preOrder', preOrderExpected, preOrderResult);
+
+  preOrderIT(testBST, val => preOrderITResult.push(val));
+  assert('3 preOrderIT', preOrderExpected, preOrderITResult);
 
   postOrderExpected = [1, 3, 2, 5, 4];
   postOrderResult = [];
 
   postOrder(testBST, val => postOrderResult.push(val));
-  assert('postOrder', postOrderExpected, postOrderResult);
+  assert('4 postOrder', postOrderExpected, postOrderResult);
 
 
   bfsExpected = [4, 2, 5, 1, 3];
   bfsResult = [];
 
   bfs(testBST, val => bfsResult.push(val));
-  assert('bfs', bfsExpected, bfsResult);
+  assert('5 bfs', bfsExpected, bfsResult);
 })();
 
 
