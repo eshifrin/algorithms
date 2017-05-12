@@ -10,26 +10,26 @@ const assert = (str, expected, processed) => {
   }
 }
 
-//--------------------------------SETUP---------------------------------------//
+//--------------------------------FUNCTIONS---------------------------------------//
 
 function maxDifference(a) {
 
-    if (!a.length) {
-        return -1;
-    }
-    
-    let maxDiff = -1;
-    let lowest = a[0];
-    
-    for (let i = 1; i < a.length; i++) {
-        if (a[i] > lowest) {
-            maxDiff = Math.max(maxDiff, a[i] - lowest)
-        } else {
-            lowest = a[i];
-        }        
-    }
-    
-    return maxDiff;    
+  if (!a.length) {
+      return -1;
+  }
+
+  let maxDiff = -1;
+  let lowest = a[0];
+
+  for (let i = 1; i < a.length; i++) {
+      if (a[i] > lowest) {
+          maxDiff = Math.max(maxDiff, a[i] - lowest)
+      } else {
+          lowest = a[i];
+      }        
+  }
+
+  return maxDiff;    
 }
 
 //--------------------------------TEST---------------------------------------//
