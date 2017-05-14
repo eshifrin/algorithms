@@ -1,12 +1,12 @@
 /*
                   Worst  Avg  Best   Space(w)
 
-relatively inefficient
+relatively inefficient, ok for small data sets / mostly sorted
 Bubble Sort        n^2   n^2   n       1
 Insertion Sort     n^2   n^2   n       1
 Selection Sort     n^2   n^2   n^2     1
 
-efficient & common
+efficient & common (Mergesort is the only stable one)
 Quicksort        n^2    nlogn  nlogn   nlogn
 Mergesort        nlogn  nlogn  nlogn   n 
 Heapsort         nlogn  nlogn  nlogn   1
