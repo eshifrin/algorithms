@@ -14,12 +14,12 @@ const insertionSort = (arr) => {
     for (let j = i; arr[j] < arr[j - 1] && j > 0; j--) {
       arr.swap(j, j - 1);
     }
-  }
+  };
 
   return arr;
 }
 
 //--------------------------------TEST------------------------------------------//
 
-testSuite(insertionSort)
+testSuite(insertionSort);
 

@@ -27,7 +27,7 @@ const assert = (str, expected, processed) => {
   } else {
     console.log(str, `failed - expected: ${expected} | got ${processed}`);
   }
-}
+};
 
 //--------------------------------FUNCTIONS---------------------------------------//
 
@@ -39,7 +39,7 @@ const inOrder = (node, cb = console.log) => {
   inOrder(node.left, cb);
   cb(node.val);
   inOrder(node.right, cb);
-}
+};
 
 const preOrder = (node, cb = console.log) => {
   if (!node) {
@@ -49,7 +49,7 @@ const preOrder = (node, cb = console.log) => {
   cb(node.val);
   preOrder(node.left, cb);
   preOrder(node.right, cb);
-}
+};
 
 const preOrderIT = (node, cb = console.log) => {
   if (!node) {
@@ -66,7 +66,7 @@ const preOrderIT = (node, cb = console.log) => {
   }
 
   return;
-}
+};
 
 const postOrder = (node, cb = console.log) => {
   if (!node) {
@@ -76,7 +76,7 @@ const postOrder = (node, cb = console.log) => {
   postOrder(node.left, cb);
   postOrder(node.right, cb);
   cb(node.val);
-}
+};
 
 
 const postOrderIT = (node, cb = console.log) => {
@@ -87,7 +87,7 @@ const postOrderIT = (node, cb = console.log) => {
   postOrder(node.left, cb);
   postOrder(node.right, cb);
   cb(node.val);
-}
+};
 
 
 const bfs = (root, cb = console.log, level = [root]) => {
@@ -105,7 +105,7 @@ const bfs = (root, cb = console.log, level = [root]) => {
 
   bfs(null, cb, nextLevel);
   return;
-}
+};
 
 //--------------------------------TESTS---------------------------------------//
 
