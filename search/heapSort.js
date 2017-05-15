@@ -7,7 +7,10 @@ var testSuite =  require('./main.js')
   heapSort 
     //first build a max heap
 
-
+    //set end element = last element
+    //then continuously swap first and end element
+    //rebuild max heap up to but not including the end element
+    //decrement end element
 
 */
 
@@ -64,22 +67,24 @@ const siftDown = (arr, i, lastParent) => {
       j = k;
     }
   }
-    }
-
+};
 
 const heapSort = (arr) => {
-  
+
+  //build a max heap (largest is the first element)
   buildMaxHeap(arr);
   for (let end = arr.length - 1; end > 0; end--) {
     let lastParent = Math.floor((end - 1) / 2) - 1;
+
+    //swap the first and 'end' element;
     arr.swap(0, end);
+
+    //get the remaining max element back to the top;
     siftDown(arr, 0, lastParent);
   }
 
   return arr;
 }
-
-// console.log(heapSort([5,4,3,2,1]))
 
 //--------------------------------TEST------------------------------------------//
 
