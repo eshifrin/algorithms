@@ -1,12 +1,5 @@
 //--------------------------------SETUP---------------------------------------//
 
-//create a binary search tree out of a sorted array
-//base case: start < end, return null
-//create a  new node with the middle value floor(end + start / 2)
-  //set the nodes left = recursive call on createBST on the values to the left of middle
-  //set nodes right = recursive call on createBST on the values to the right of middle
-
-
 class node {
   constructor(val) {
     this.val = val;
@@ -23,7 +16,6 @@ const assert = (str, expected, processed) => {
 };
 
 //--------------------------------FUNCTIONS---------------------------------------//
-
 
 var reverseList = function(head) {
     if (!head) {
