@@ -1,18 +1,6 @@
 //--------------------------------SETUP---------------------------------------//
 
-//create a binary search tree out of a sorted array
-//base case: start < end, return null
-//create a  new node with the middle value floor(end + start / 2)
-  //set the nodes left = recursive call on createBST on the values to the left of middle
-  //set nodes right = recursive call on createBST on the values to the right of middle
-
-
-class node {
-  constructor(val) {
-    this.val = val;
-    this.next = null;
-  }
-}
+//return whether or not a string has every letter in the alphabet
 
 const assert = (str, expected, processed) => {
   if (JSON.stringify(expected) === JSON.stringify(processed)) {
