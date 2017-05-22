@@ -5,3 +5,4 @@ module.exports.assert = (str, expected, processed) => {
     console.log(str, `failed - expected: ${expected} | got ${processed}`);
   }
 }
+
