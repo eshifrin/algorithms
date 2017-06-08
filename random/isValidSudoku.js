@@ -1,7 +1,7 @@
 // return if a board is valid
 const assert = require('../helpers.js').assert;
 
-
+/*-----------------FUNCTION-----------------*/
 
 const isValidSudoku = function(board) {
   const rows = {};
@@ -19,7 +19,6 @@ const isValidSudoku = function(board) {
     }
   }
 
-
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board.length; c++) {
       let val = board[r][c];
@@ -30,7 +29,7 @@ const isValidSudoku = function(board) {
           if (!isValidSpot(rows, r, val) ||
               !isValidSpot(cols, c, val) ||
               !isValidSpot(boxes, b, val)) {
-              return false;        
+                return false;        
           }
       }
         
@@ -41,17 +40,17 @@ const isValidSudoku = function(board) {
 };
 
 
+/*-----------------TESTING-----------------*/
 const boardCreator = (strArr) => {
-    return strArr.map(str => str.split(''))
+    return strArr.map(str => str.split(''));
 }
 
+const b1 = ["287654321","2........","3........","4........","5........","6........","7........","8........","9........"];
+const b2 = ["287654321",".........","3........","4........","5........","6........","7........","8........","9........"];
+const b3 = ["........",".........",".........",".........",".........",".........",".........",".........","........."];
 
-const b1 = ["287654321","2........","3........","4........","5........","6........","7........","8........","9........"]
-const b2 = ["287654321",".........","3........","4........","5........","6........","7........","8........","9........"]
-const b3 = ["........",".........",".........",".........",".........",".........",".........",".........","........."]
-
-assert('1 finds col conflicts', false, isValidSudoku(boardCreator(b1)))
-assert('2 finds row conflicts', false, isValidSudoku(boardCreator(b2)))
-assert('3 valid board passes', true, isValidSudoku(boardCreator(b3)))
+assert('1 finds col conflicts', false, isValidSudoku(boardCreator(b1)));
+assert('2 finds row conflicts', false, isValidSudoku(boardCreator(b2)));
+assert('3 valid board passes', true, isValidSudoku(boardCreator(b3)));
 
 
