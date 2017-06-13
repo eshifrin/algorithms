@@ -23,16 +23,16 @@ var dll = function() {
 }
 
 dll.prototype.insertHead = function(node) {
-    if (!this.head) {
-      this.head = node;
-      this.tail = node;
-    } else {
-      let oldHead = this.head;
-      oldHead.prev = node;
-      node.next = oldHead;
-      this.head = node;      
-    }
-    return;
+  if (!this.head) {
+    this.head = node;
+    this.tail = node;
+  } else {
+    let oldHead = this.head;
+    oldHead.prev = node;
+    node.next = oldHead;
+    this.head = node;      
+  }
+  return;
 }
 
 dll.prototype.removeTail = function() {
@@ -113,18 +113,18 @@ LRUCache.prototype.put = function(key, value) {
     this.dll.insertHead(node);
     return;      
   } else {
-      let node = new Node(key, value);
-      this.pairs[key] = node;        
-      this.usage++;
-      
-      if (this.usage > this.capacity) {
-        let oldTailKey = this.dll.removeTail().key;
-        delete this.pairs[oldTailKey];
-        this.usage--;
-      }
-      
-      this.dll.insertHead(node);
-      return;
+    let node = new Node(key, value);
+    this.pairs[key] = node;        
+    this.usage++;
+    
+    if (this.usage > this.capacity) {
+      let oldTailKey = this.dll.removeTail().key;
+      delete this.pairs[oldTailKey];
+      this.usage--;
+    }
+    
+    this.dll.insertHead(node);
+    return;
   }
 };
 

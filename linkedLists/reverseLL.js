@@ -23,13 +23,14 @@ var reverseList = function(head) {
     }
     
     let previous = null;
-    let next = head;
+    let current = head;
+    let next;
     
-    while (next) {
-        let n = next.next;
-        next.next = previous;
-        previous = next;
-        next = n;
+    while (current) {
+        next = current.next;
+        current.next = previous;
+        previous = current;
+        current = next;
     }
     
     head = previous;
