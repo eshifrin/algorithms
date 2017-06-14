@@ -1,4 +1,4 @@
-const { assert, Q, node } = require('../helpers.js');
+const { assert, Q } = require('../helpers.js');
 
 const stepsToTransform = function(start, end, dict) {
   if (start === end) {
