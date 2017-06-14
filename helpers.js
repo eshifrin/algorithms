@@ -1,4 +1,4 @@
-module.exports.assert = (str, expected, processed) => {
+const assert = (str, expected, processed) => {
   if (JSON.stringify(expected) === JSON.stringify(processed)) {
     console.log(str, 'passed');
   } else {
@@ -7,94 +7,55 @@ module.exports.assert = (str, expected, processed) => {
 }
 
 
-
-
 Array.prototype.last = function() {
   return this[this.length - 1];
 }
 
-const isNumber = (n) => !isNaN(Number(n));
+function node (val) {
+    this.val = val;
+    this.next = null;
+}
 
-convertToRPN = (str) => {
-  let precedence = {
-    '^' : 4,
-    '*' : 3,
-    '/' : 3,
-    '+' : 2,
-    '-' : 1
-  }
+function Q() {
+    this.size = 0;
+    this.head = null;
+    this.tail = null;
+}
 
-  let stack = [];
-  let operatorStack = [];
 
-  for (let i = 0; i < str.length; i++) {
-    let char = str[i];
+Q.prototype.enqueue = function(val) {
+    //aka add to tail
+    let n = new node(val);
+    this.size++; 
 
-    if (char === ' ') {
-      continue
-    }
-    else if (isNumber(char)) {
-      if (isNumber(str[i - 1])) {
-        stack[stack.length - 1] = Number(stack.last() + char)
-      } else {
-        stack.push(Number(char))
-      }
-    } else if (char === '(') {
-      operatorStack.push(char);
-    } else if (char === ')') {
-      while (operatorStack.last() !== '(') {
-        stack.push(operatorStack.pop())
-      }
-      operatorStack.pop();
+    if (!this.head) {
+        this.head = n;
+        this.tail = n;
+        return;
     } else {
-      let p = precedence[char];
-
-      if (!operatorStack.length || p > precedence[operatorStack.last()]) {
-        operatorStack.push(char);
-      } else {
-        while (p <= precedence[operatorStack.last()]) {
-          stack.push(operatorStack.pop());
-        }
-        operatorStack.push(char);
-      }
+        this.tail.next = n;
+        this.tail = n;
     }
-  }
-
-  while (operatorStack.length) {
-    stack.push(operatorStack.pop())
-  }
-
-  return stack;
+    return;
 }
 
-
-
-let isOp = (char) => {
-  return !!ops[char];
-}
-
-const calc = (str) => {
-  let parts = convertToRPN(str);
-  let stack = [];
-
-  for (let i = 0; i < parts.length; i++) {
-    let char = parts[i];
-    if (isOp(char)) {
-      let n2 = stack.pop();
-      let n1 = stack.pop();
-      stack.push( ops[char](n1, n2) );
-    } else {
-      stack.push(Number(char))
+Q.prototype.dequeue = function() {
+    if (!this.head) {
+        return null;
     }
-  }
 
-  return stack[0];
+    let oldHead = this.head;
+    this.head = oldHead.next;
+    if (this.tail === oldHead) {
+        this.tail = null;
+    }
+
+    this.size--;
+    return oldHead.val;
 }
 
 
 
-
-// }
-
-
-// console.log(stack[0])
+module.exports = {
+  assert, node, Q
+}
