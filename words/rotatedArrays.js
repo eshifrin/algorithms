@@ -7,11 +7,6 @@ const assert = helpers.assert;
 
 //--------------------------------FUNCTIONS---------------------------------------//
 
-//  naive implementation - combine all the strings in array1, 
-
-
-
-
 const buildPreSuf = (sub) => {
   let preIdx = 0;
   let sufIdx = 1;
