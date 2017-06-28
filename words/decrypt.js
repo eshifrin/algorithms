@@ -74,8 +74,6 @@ const decode = (str) => {
   return originalString;
 }
 
-
-console.log(encode('zebra'))
 //--------------------------------TEST---------------------------------------//
 
 // assert('empty string', '', decode(''));

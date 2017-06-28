@@ -22,7 +22,6 @@ function Q() {
     this.tail = null;
 }
 
-
 Q.prototype.enqueue = function(val) {
     //aka add to tail
     let n = new node(val);
@@ -53,8 +52,6 @@ Q.prototype.dequeue = function() {
     this.size--;
     return oldHead.val;
 }
-
-
 
 module.exports = {
   assert, node, Q

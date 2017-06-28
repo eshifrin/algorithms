@@ -93,6 +93,3 @@ let reverse = (arr, start, end) => {
     return;
 }
 
-let test = 'the sky is blue'.split('');
-reverseWords(test);
-console.log(test)
