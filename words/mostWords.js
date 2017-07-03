@@ -40,6 +40,19 @@ function mostWords(S) {
   return Math.max(...sentences.map(countWordsInSentence));
 }
 
+class test {
+  constructor(){
+    this.hello = 'yo' 
+  }
+
+  wow() {
+    console.log(this.hello)
+  }
+}
+
+let a = new test()
+a.wow()
+
 //--------------------------------TEST---------------------------------------//
 
 console.log('most words in a sentence')
