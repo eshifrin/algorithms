@@ -75,7 +75,6 @@ const decode = (str) => {
 }
 
 //--------------------------------TEST---------------------------------------//
-
 // assert('empty string', '', decode(''));
 // assert('provided example 1', 'crime', decode('dnotq'));
 // assert('provided example 2', 'encyclopedia', decode('flgxswdliefy'));

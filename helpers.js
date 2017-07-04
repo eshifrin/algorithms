@@ -6,7 +6,6 @@ const assert = (str, expected, processed) => {
   }
 }
 
-
 Array.prototype.last = function() {
   return this[this.length - 1];
 }
@@ -53,6 +52,40 @@ Q.prototype.dequeue = function() {
     return oldHead.val;
 }
 
+const createTreeFromHeap = (arr, i = 0) => {
+  if (i >= arr.length) {
+    return null;
+  }
+
+  let n = new node(arr[i]);
+  n.left = createTreeFromHeap(arr, 2 * i + 1);
+  n.right = createTreeFromHeap(arr, 2 * i + 2);
+  return n;
+}
+
+const createBST = (arr, start = 0, end = arr.length - 1) => {
+  if (end < start) {
+    return null;
+  }
+
+  let middle = Math.floor((start + end) / 2);
+  let n = new node(arr[middle]);
+  n.left = createBST(arr, start, middle - 1);
+  n.right = createBST(arr, middle + 1, end);
+
+  return n;
+};
+
+const inOrder = (node, cb = console.log) => {
+  if (!node) {
+    return;
+  }
+
+  inOrder(node.left, cb);
+  cb(node.val);
+  inOrder(node.right, cb);
+};
+
 module.exports = {
-  assert, node, Q
+  assert, node, Q, createTreeFromHeap, createBST, inOrder
 }

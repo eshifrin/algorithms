@@ -32,3 +32,5 @@ assert('single 5', singleDepth[5], singleMapper(6));
 const doubleMapper = requester(multipleDepth);
 assert('double 0', multipleDepth[2], doubleMapper(3));
 assert('double 2', multipleDepth[3], doubleMapper(6));
+
+
