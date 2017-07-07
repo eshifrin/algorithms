@@ -50,6 +50,7 @@ const createBST = (arr, start = 0, end = arr.length - 1) => {
   return n;
 };
 
+
 //--------------------------------TEST---------------------------------------//
 
 assert('empty array', createTreeFromHeap([]), createBST([]));
