@@ -15,6 +15,7 @@ function node (val) {
     this.next = null;
 }
 
+
 function Q() {
     this.size = 0;
     this.head = null;
@@ -76,6 +77,29 @@ const createBST = (arr, start = 0, end = arr.length - 1) => {
   return n;
 };
 
+const BFS = (root, level = 0, cb) => {
+  if (!root) {
+    return;
+  }
+
+  let levelNodes = [root];
+
+  while (levelNodes.length) {
+    let nextLevel = [];
+    levelNodes.forEach(node => {
+      cb && cb(node, level);
+      if (node.left) { nextLevel.push(node.left); }
+      if (node.right) { nextLevel.push(node.right); }
+    });
+
+    levelNodes = nextLevel;
+    nextLevel = [];
+    level++;
+  }
+
+  return;
+}
+
 const inOrder = (node, cb = console.log) => {
   if (!node) {
     return;
@@ -87,5 +111,5 @@ const inOrder = (node, cb = console.log) => {
 };
 
 module.exports = {
-  assert, node, Q, createTreeFromHeap, createBST, inOrder
+  assert, node, Q, createTreeFromHeap, createBST, inOrder, BFS
 }
