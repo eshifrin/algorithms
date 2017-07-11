@@ -23,18 +23,11 @@ const dll = function dll(node) {
   this.tail = node || null;
 };
 
-const KeyNode = function KeyNode(key, value) {
-  this.key = key;
-  this.value = value;
-  this.prev = null;
-  this.next = null;
-}
-
 const ValueNode = function ValueNode(value) {
   this.prev = null;
   this.next = null;
   this.value = value;
-  this.keyDLL = new dll();
+  this.keySet = new Set();
 }
 
 dll.prototype.insertHead = function insertHead(node) {
@@ -98,7 +91,6 @@ dll.prototype.removeNode = function removeNode(node) {
     this.tail = node.prev;
   }
 
-
   if (node.prev) {
     node.prev.next = node.next;
   }
@@ -112,7 +104,6 @@ dll.prototype.removeNode = function removeNode(node) {
   return node;
 };
 
-
 class AllInOne {
   constructor() {
     this.keysHT = {};
@@ -121,43 +112,37 @@ class AllInOne {
   }
 
   getMaxKey() {
-    return this.valuesDLL.tail.keyDLL.head.key;
+    return this.valuesDLL.tail.keySet.values().next().value;
   }
 
   getMinKey() {
-    return this.valuesDLL.head.keyDLL.head.key;
+    return this.valuesDLL.head.keySet.values().next().value;
   }
 
-  inc(key) {
-    if (this.keysHT[key] === undefined) {
-      const newKeyNode = new KeyNode(key, 1);
-      this.keysHT[key] = newKeyNode;
+  change(key, incOrDec) {
+    let prevValue = this.keysHT[key] || 0;
+    let nextValue = prevValue + (incOrDec === 'inc' ? 1 : -1);
+    this.keysHT[key] = nextValue;
 
-      if (this.valuesHT[1] === undefined) {
-        const newValueNode = new ValueNode(1);
-        this.valuesDLL.insertHead(newValueNode);
-        this.valuesHT[1] = newValueNode;
-      }
-
-      this.valuesDLL.head.keyDLL.insertHead(newKeyNode);
-      return 1;
-    }
-
-    const oldNode = this.keysHT[key];
-    const prevValue = oldNode.value;
-    const nextValue = prevValue + 1;
-    oldNode.value += 1;
-
-    if (this.valuesHT[nextValue] === undefined) {
-      const newValueNode = new ValueNode(nextValue);
-      this.valuesDLL.insertNode(newValueNode, this.valuesHT[prevValue]);
+    if (nextValue === 0) {
+      delete this.keysHT[key];
+    } else if (!this.valuesHT[nextValue]) {
+      const newValueNode = new ValueNode(1);
+      const afterNode = incOrDec === 'inc' ? (this.valuesHT[prevValue] || null) : 
+                                             (!prevValue ? null : this.valuesHT[prevValue].prev);
+      this.valuesDLL.insertNode(newValueNode, afterNode);
       this.valuesHT[nextValue] = newValueNode;
     }
+    
+    if (prevValue) {
+      this.valuesHT[prevValue].keySet.delete(key);
+    }
 
-    this.valuesHT[prevValue].keyDLL.removeNode(oldNode);
-    this.valuesHT[nextValue].keyDLL.insertHead(oldNode);
+    if (nextValue) {
+      this.valuesHT[nextValue].keySet.add(key);
+    }
 
-    if (!this.valuesHT[prevValue].keyDLL.head) {
+    if (prevValue && !this.valuesHT[prevValue].keySet.size) {
       this.valuesDLL.removeNode(this.valuesHT[prevValue]);
       delete this.valuesHT[prevValue];
     }
@@ -165,47 +150,21 @@ class AllInOne {
     return nextValue;
   }
 
+  inc(key) {
+    return this.change(key, 'inc');
+  }
+
   dec(key) {
     if (!this.keysHT[key]) {
       return undefined;
     }
-
-    const prevValue = this.keysHT[key].value;
-    const node = this.keysHT[key];
-
-    if (prevValue === 1) {
-      this.valuesDLL.head.keyDLL.removeNode(node);  
-      delete this.keysHT[key];
-      if (!this.valuesHT[1].keyDLL.head) {
-        this.valuesDLL.removeNode(this.valuesHT[1]);
-        delete this.valuesHT[1];
-      }
-
-      return 0;
-    } else {
-      const nextValue = prevValue - 1;
-      node.value = nextValue;
-      if (!this.valuesHT[nextValue]) {
-        const newValueNode = new ValueNode(nextValue);
-        this.valuesDLL.insertNode(newValueNode, this.valuesHT[prevValue].prev);
-        this.valuesHT[nextValue] = newValueNode;
-      }
-
-      this.valuesHT[prevValue].keyDLL.removeNode(node);
-      this.valuesHT[nextValue].keyDLL.insertHead(node);
-
-      if (!this.valuesHT[prevValue].keyDLL.head) {
-        this.valuesDLL.removeNode(this.valuesHT[prevValue]);
-        delete this.valuesHT[prevValue];
-      }
-      return nextValue;
-    }
+    return this.change(key, 'dec');
   }
 }
 
 // //--------------------------------TESTING---------------------------------------//
 const test = new AllInOne();
-assert('returns 1 after first increment', 1, test.inc('yo'))
+assert('returns 1 after first increment', 1, test.inc('yo'));
 test.inc('jk');
 test.inc('jk');
 test.inc('hello');
