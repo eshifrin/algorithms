@@ -18,7 +18,7 @@ const canPermutePalindrome = function(s) {
         }
     }
     
-    return oddCount <= 1;
+    return [...letters.entries()].length <= 1;
 };
 
 /* ---------------TESTS----------------- */
