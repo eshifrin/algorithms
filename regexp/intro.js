@@ -1,4 +1,4 @@
-//--------------------------------SETUP---------------------------------------//
+// --------------------------------SETUP---------------------------------------//
 
 // describe the problem
 const { assert } = require('../helpers.js');
@@ -7,20 +7,20 @@ const { assert } = require('../helpers.js');
 // pattern = "abab", str = "redblueredblue" should return true.
 // pattern = "aaaa", str = "asdasdasdasd" should return true.
 // pattern = "aabb", str = "xyzabcxzyabc" should return false
-//--------------------------------FUNCTIONS---------------------------------------//
+// --------------------------------FUNCTIONS---------------------------------------//
 
 const wordPatternMatch = (pattern, str) => {
   let r = '';
-  let ht = {};
+  const ht = {};
   let counter = 1;
 
   for (let i = 0; i < pattern.length; i++) {
-    let ltr = pattern[i];
-    let idx = ht[ltr];
+    const ltr = pattern[i];
+    const idx = ht[ltr];
 
     if (idx === undefined) {
       ht[ltr] = counter;
-      counter++;
+      counter += 1;
       r += '(\\w+)';
     } else {
       r += `\\${idx}`;
@@ -28,20 +28,16 @@ const wordPatternMatch = (pattern, str) => {
   }
 
   r = new RegExp(`^${r}$`);
-  let results = r.exec(str);
+  const results = r.exec(str);
   if (results === null) {
     return false;
   }
-  console.log(str.match(r))
-
-  let uniques = new Set(results.slice(1));
+  const uniques = new Set(results.slice(1));
   return uniques.size === results.length - 1;
-}
+};
 
-//--------------------------------TESTING---------------------------------------//
-// assert('abab', true, wordPatternMatch('abab', 'redblueredblue'));
-// assert('aaaa', true, wordPatternMatch('aaaa', 'asdasdasdasd'));
-// assert('aabb', false, wordPatternMatch('aabb', 'xyzabcxzyabc'));
-// assert('aa', false, wordPatternMatch('ab', 'aa'));
-
-wordPatternMatch('ats', 'ataa')
+// --------------------------------TESTING---------------------------------------//
+assert('abab', true, wordPatternMatch('abab', 'redblueredblue'));
+assert('aaaa', true, wordPatternMatch('aaaa', 'asdasdasdasd'));
+assert('aabb', false, wordPatternMatch('aabb', 'xyzabcxzyabc'));
+assert('aa', false, wordPatternMatch('ab', 'aa'));
