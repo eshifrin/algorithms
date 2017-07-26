@@ -13,51 +13,53 @@
 // Y   I   R
 // And then read line by line: "PAHNAPLSIIGYIR"
 // describe the problem
-const { assert } = require('../helpers.js');
 
 // --------------------------------FUNCTIONS---------------------------------------//
+const zigZag = (s, numRows = 1) => {
+  if (numRows <= 1) {
+    return s;
+  }
 
-function test(a, b) {
-  return a + b
-}
-test(5, 4)
+  let zigged = '';
 
-// const zigZag = (s, numRows = 1) => {
-//   if (numRows <= 1) {
-//     return s;
-//   }
+  // FORMULA FOR LARGE STEPS = idx + numRows * 2 - 2
+  // the longest time it will take to get back to any row (e.g first and last)
+  // is 2 * numRows - 2 (thats the jump in the outer for loop)
+  // because it will take numRows to traverse vertically and numRows diagonally
+  // however you have to subtract 1 for the overlap and 1 for the initial number
+  // e.g. if i occur every 3 times my next occurance = current + 3 - 1
 
-//   let zigged = '';
+  // FORMULA FOR INTERMEDIATE STEPS = idx + (numRows - row) * 2 - 2
+  // similar rationale as for the big step except you have to adjust for how many rows
+  // down we started at...
+  // if we are in row 3 out of 5, it will take (5 - 3) steps to get 'down' and (5 - 3) steps
+  // to get diagonally 'up'.  subtract 1 for the overlap and 1 for the starting position
+  // also add in the index we started from...
 
-//   // the longest time it will take to get back to any row (e.g first and last)
-//   // is 2 * numRows - 2 
-//   // because it will take numRows to traverse vertically and numRows diagonally
-//   // however you have to subtract 1 for the overlap and 1 for the initial number
-//   // e.g. if i occur every 3 times my next occurance = current + 3 - 1
+  // traverse each row
+  for (let r = 0; r < numRows; r++) {
 
-//   // traverse each row
-//   for (let r = 0; r < numRows; r++) {
+    // find all the letters in that row
+    for (let idx = r; idx < s.length; idx += (numRows * 2) - 2) {
+      zigged += s[idx];
 
-//     // find all the letters in that row
-//     for (let idx = r; idx < s.length; idx += (numRows * 2) - 2) {
-//       zigged += s[idx];
+      // for rows not at the beginning or end
+      if (r > 0 && r < numRows - 1) {
+        const next = idx + (numRows - r) * 2 - 2;
+        if (next < s.length) {
+          zigged += s[next];
+        }
+      }
+    }
+  }
 
-//       if (r > 0 && r < numRows - 1) {
-//         const next = idx + (numRows - r) * 2 - 2;
-//         if (next < numRows) {
-//           zigged += s[next];
-//         }
-//       }
-//     }
-//   }
+  return zigged;
+};
 
-//   return zigged;
-// };
-
-// zigZag('PAYPALISHIRING', 3)
 
 // --------------------------------TESTING---------------------------------------//
-// assert('returns single string as is', 'hello', zigZag('hello', 1));
-// assert('returns null string as is', '', zigZag('', 1));
-// assert('returns double string correctly', 'acegbdf', zigZag('abcdefg', 2));
-// assert('converts paypal is hiring correctly', 'PAHNAPLSIIGYIR', zigZag('PAYPALISHIRING', 3));
+const { assert } = require('../helpers.js');
+assert('returns single string as is', 'hello', zigZag('hello', 1));
+assert('returns null string as is', '', zigZag('', 1));
+assert('returns double string correctly', 'acegbdf', zigZag('abcdefg', 2));
+assert('converts paypal is hiring correctly', 'PAHNAPLSIIGYIR', zigZag('PAYPALISHIRING', 3));
