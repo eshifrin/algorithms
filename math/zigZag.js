@@ -24,10 +24,10 @@ const zigZag = (s, numRows = 1) => {
 
   // FORMULA FOR LARGE STEPS = idx + numRows * 2 - 2
   // the longest time it will take to get back to any row (e.g first and last)
-  // is 2 * numRows - 2 (thats the jump in the outer for loop)
+  // is 2 * numRows - 2 (the incremental value in the inner for loop)
   // because it will take numRows to traverse vertically and numRows diagonally
   // however you have to subtract 1 for the overlap and 1 for the initial number
-  // e.g. if i occur every 3 times my next occurance = current + 3 - 1
+  // 1 for the initial #...e.g. if i occur every 3 times my next occurance = current + 3 - 1
 
   // FORMULA FOR INTERMEDIATE STEPS = idx + (numRows - row) * 2 - 2
   // similar rationale as for the big step except you have to adjust for how many rows
